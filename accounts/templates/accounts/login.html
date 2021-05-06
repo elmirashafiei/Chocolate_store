@@ -1,0 +1,7 @@
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <table>{{ form }}</table>
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+{% endblock %}
