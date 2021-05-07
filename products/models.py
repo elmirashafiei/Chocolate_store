@@ -1,4 +1,3 @@
-from enum import Enum
 from django.db import models
 from django.db.models import IntegerField
 from accounts.models import Author
@@ -18,10 +17,8 @@ class Product(models.Model):
     title = models.CharField(max_length=128)
     description = models.CharField(max_length=256)
     #thumbnail =
-    
     category = models.ForeignKey(Category, on_delete=models.CASCADE, name="products_under_category")
     price = IntegerField()
-    
     PRODUCT_TYPES_CHOICES = (
         ("SUBS", "Subscription to a service"),
         ("ITEM", "Item shipped to the customer")
@@ -31,10 +28,7 @@ class Product(models.Model):
         choices=PRODUCT_TYPES_CHOICES,
         default="ITEM",
     )
-
     author = models.ForeignKey(Author, on_delete=models.CASCADE, name="products_of_author")
-
-
 
     def __str__(self):
         return f'{self.title} , {self.price} , {self.category}'
