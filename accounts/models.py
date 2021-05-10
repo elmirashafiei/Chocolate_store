@@ -1,6 +1,5 @@
-from django.contrib.auth.models import User
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class UserAccount(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -9,6 +8,7 @@ class UserAccount(models.Model):
     city = models.CharField(max_length=128)
     country = models.CharField(max_length=128)
     avatar = models.ImageField()
+
     ROLES_CHOICES = (
         ("ADM", "Admin"),
         ("USR", "User")
@@ -33,6 +33,7 @@ class UserAccount(models.Model):
         if self.user.first_name:
             return self.user.first_name
         return self.user.username
+
 
 
 class Author(models.Model):

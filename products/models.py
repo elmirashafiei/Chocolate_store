@@ -16,8 +16,8 @@ class Category(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=128)
     description = models.CharField(max_length=256)
-    #thumbnail =
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, name="products_under_category")
+    thumbnail = models.ImageField(upload_to="images/")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     price = IntegerField()
     PRODUCT_TYPES_CHOICES = (
         ("SUBS", "Subscription to a service"),
@@ -34,5 +34,6 @@ class Product(models.Model):
         return f'{self.title} , {self.price} , {self.category}'
 
 
+ #class ImagesPro(models.Model):
 
 
