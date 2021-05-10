@@ -7,7 +7,7 @@ class UserAccount(models.Model):
     ZIP_code = models.CharField(max_length=128)
     city = models.CharField(max_length=128)
     country = models.CharField(max_length=128)
-    avatar = models.ImageField()
+    avatar = models.ImageField(upload_to="images/")
 
     ROLES_CHOICES = (
         ("ADM", "Admin"),
