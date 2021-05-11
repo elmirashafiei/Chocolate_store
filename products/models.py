@@ -1,7 +1,9 @@
-from enum import Enum
 from django.db import models
-from django.db.models import  DecimalField
+from django.db.models import DecimalField
+
 from accounts.models import Author
+
+
 # The connection is bad
 
 
@@ -23,11 +25,9 @@ class Category(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=128)
     description = models.TextField(max_length=256)
-    #thumbnail =
-    
+    thumbnail = models.ImageField(upload_to="images/")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, name="products_under_category")
-    price = DecimalField(max_digits=10,decimal_places=2)
-    
+    price = DecimalField(max_digits=10, decimal_places=2)
     PRODUCT_TYPES_CHOICES = (
         ("SUBS", "Subscription to a service"),
         ("ITEM", "Item shipped to the customer")
@@ -37,14 +37,7 @@ class Product(models.Model):
         choices=PRODUCT_TYPES_CHOICES,
         default="ITEM",
     )
-
     author = models.ForeignKey(Author, on_delete=models.CASCADE, name="products_of_author")
-
-
 
     def __str__(self):
         return f'{self.title} , {self.price} , {self.category}'
-
-
-
-
