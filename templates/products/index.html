@@ -2,25 +2,25 @@
 {% load static %}
 
 {% block content %}
+<img src="{% static 'media/images/images.jpeg' %}" alt="Nice!">
+
   <h1>Welcome to Chocolate Store!</h1>
   <ul>
-    {% for movie in object_list %}
+    {% for product in object_list %}
       <li>
-        {{ movie.title }} ({{ movie.released.year }}) : {{ movie.genre.name }} /
-        <a href="{% url 'movie_detail' movie.id %}">
+        {{ product.title }} ({{ product.price }}) : {{ product.description }} /
+        <a href="{% url 'product_detail' product.id %}">
           Detail
         </a>
         {% if user.is_authenticated %} /
-        <a href="{% url 'movie_update' movie.id %}">
+        <a href="{% url 'product_update' product.id %}">
           update
         </a> /
-        <a href="{% url 'movie_delete' movie.id %}">
+        <a href="{% url 'product_delete' product.id %}">
           Delete
         </a>
         {% endif %}
       </li>
     {% endfor %}
   </ul>
-
-  <img src="{% static 'img/images.jpeg' %}" alt="Action!">
 {% endblock %}

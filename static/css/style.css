@@ -1,0 +1,40 @@
+h1{
+color: brown;
+text-align:center;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+    border: solid 1px white;
+    border-radius: 4px;
+    box-shadow: 2px 2px 10px;
+    transition: all .2s;
+    display : block;
+    color: black;
+    margin-left : auto;
+    margin-right: auto;
+    height: 450px;
+    padding: 100px 0 0 0;
+
+}
+
+.product-title{
+color:brown;
+margin-top : 20px;
+}
+
+img:hover {
+    transform: scale(1.1);
+}
+
+
+.nav-item.nav-link{
+margin-left:10px;
+border-bottom:solid 1px transparent;
+transition:all .5s;
+}
+.nav-item.nav-link:hover{
+color:yellow!important;
+border-bottom:solid 1px yellow!important;
+}
