@@ -1,6 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, DeleteView
 
 from products.models import Product
 
@@ -21,3 +23,27 @@ def index(request):
 class ProductsViewList(ListView):
     template_name = "products/products.html"
     model = Product
+
+
+class StaffRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_staff
+
+
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, StaffRequiredMixin, DeleteView):
+    template_name = "products/delete_form.html"
+    model = Product
+    success_url = reverse_lazy("products")
+    permission_required = "products.delete_product"
+    def test_func(self):
+        return super().test_func() and self.request.user.is_superuser
+
+class ProductDetailView(DetailView):
+    template_name = "products/product_detail.html"
+    model = Product
+
+
+# class StaffRequiredMixin(object):
+#     pass
+
+
