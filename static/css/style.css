@@ -1,6 +1,7 @@
 h1{
-color: brown;
+color: black;
 text-align:center;
+text-shadow: 1px 1px 2px;
 }
 /*
 img {
@@ -24,6 +25,10 @@ img {
 }
 */
 img {
+    border-style: none;
+    border: solid 1px white;
+    border-radius: 4px;
+    box-shadow: 2px 2px 10px;
     margin-top: 20px;
     margin-bottom: 50px;
     max-height: 450px;
@@ -31,19 +36,30 @@ img {
 .center-container {
     text-align: center;
 }
+
 .product-title{
-color:brown;
+color:yellow;
 margin-top : 20px;
 }
+
 img:hover {
     transform: scale(1.1);
 }
+
 .nav-item.nav-link{
 margin-left:10px;
 border-bottom:solid 1px transparent;
 transition:all .5s;
 }
+
 .nav-item.nav-link:hover{
 color:yellow!important;
 border-bottom:solid 1px yellow!important;
+}
+
+body{
+  background: url("static/img/action.jpg");
+  color: black;
+  height: 950px;
+  padding: 100px 0 0 0;
 }
