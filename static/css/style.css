@@ -2,7 +2,7 @@ h1{
 color: brown;
 text-align:center;
 }
-
+/*
 img {
     vertical-align: middle;
     border-style: none;
@@ -16,19 +16,28 @@ img {
     margin-right: auto;
     height: 450px;
     padding: 100px 0 0 0;
-
+    object-fit:cover;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
-
+*/
+img {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    max-height: 450px;
+}
+.center-container {
+    text-align: center;
+}
 .product-title{
 color:brown;
 margin-top : 20px;
 }
-
 img:hover {
     transform: scale(1.1);
 }
-
-
 .nav-item.nav-link{
 margin-left:10px;
 border-bottom:solid 1px transparent;

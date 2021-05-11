@@ -1,8 +1,14 @@
 {% extends "base.html" %}
-
 {% block content %}
-<p><strong> **</strong>{{ object.title}}**</p>
-<p><strong> price: </strong>{{ object.price }} $</p>
-<p><strong> category: </strong>{{ object.category }}</p>
-<p><strong> detail: </strong>{{ object.description }}</p>
+<div class="center-container">
+  <img  src="{{ product.thumbnail.url }}" alt="Products!" >
+  <p><strong> **</strong>{{ object.title}}**</p>
+  <p><strong> price: </strong>{{ object.price }} $</p>
+  <p><strong> category: </strong>{{ object.category }}</p>
+  <p><strong> detail: </strong>{{ object.description }}</p>
+  <a href="">
+  <button type="button" class="btn btn-warning">Add To Card</button>
+  </a>
+
+</div>
 {% endblock %}
