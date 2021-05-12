@@ -24,10 +24,17 @@ class Category(models.Model):
 
 class Product(models.Model):
     title = models.CharField(max_length=128)
+<<<<<<< HEAD
     description = models.TextField(max_length=256)
     thumbnail = models.ImageField(upload_to="images/")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, name="products_under_category")
     price = DecimalField(max_digits=10, decimal_places=2)
+=======
+    description = models.CharField(max_length=256)
+    thumbnail = models.ImageField(upload_to="images/")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    price = IntegerField()
+>>>>>>> feature/Pro-View
     PRODUCT_TYPES_CHOICES = (
         ("SUBS", "Subscription to a service"),
         ("ITEM", "Item shipped to the customer")
@@ -41,3 +48,11 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.title} , {self.price} , {self.category}'
+<<<<<<< HEAD
+=======
+
+
+ #class ImagesPro(models.Model):
+
+
+>>>>>>> feature/Pro-View
