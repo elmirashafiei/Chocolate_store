@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'accounts',
     'products',
     'orders',
+    'cart',
 
 ]
 
@@ -139,3 +140,4 @@ MEDIA_URL = '/media/'
 # connect base directory up to a media to build the actual link to the media folder
 # so that Django can access the folder
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+CART_SESSION_ID = 'cart'
