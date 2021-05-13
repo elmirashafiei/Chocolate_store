@@ -9,7 +9,7 @@ from accounts.models import Author
 
 class Category(models.Model):
     name = models.CharField(max_length=128)
-    slug = models.SlugField(max_length=200, unique=True)
+
 
     # parent categories and 'children'categories(tree placement)
 

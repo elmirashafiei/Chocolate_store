@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView
 
+from cart.forms import CartAddProductForm
 from products.models import Product
 
 
@@ -41,6 +42,11 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, StaffRequir
 class ProductDetailView(DetailView):
     template_name = "products/product_detail.html"
     model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(**kwargs)
+        context['form'] = CartAddProductForm
+        return context
 
 
 # class StaffRequiredMixin(object):
