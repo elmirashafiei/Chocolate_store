@@ -58,6 +58,11 @@ color:yellow!important;
 border-bottom:solid 1px yellow!important;
 }
 
+.nav-item-cart{
+margin-left:300px!important;
+}
+
+
 body{
   background: url("static/img/action.jpg");
   color: black;
