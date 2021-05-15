@@ -1,11 +1,14 @@
+import json
+from django.http import  JsonResponse
+
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-from django.http import HttpResponse
+from django.forms import DecimalField, models
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView
 
 from cart.forms import CartAddProductForm
-from products.models import Product
+from products.models import Product, Category
 
 
 def home(request, s0):
@@ -20,6 +23,19 @@ def index(request):
     return render(
         request, template_name='products/index.html',  # Template is the file you want to load
     )
+
+
+def search_products(request):
+    if request.method == 'POST':
+        search_str = json.loads(request.body).get('searchText')
+
+        products = Product.objects.filter(
+            title__startswith=search_str) | Product.objects.filter(
+            description__icontains=search_str)
+        data = products.values()
+        print(data)
+        return JsonResponse(list(data), safe=False)
+
 
 class ProductsViewList(ListView):
     template_name = "products/products.html"
@@ -36,8 +52,10 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, StaffRequir
     model = Product
     success_url = reverse_lazy("products")
     permission_required = "products.delete_product"
+
     def test_func(self):
         return super().test_func() and self.request.user.is_superuser
+
 
 class ProductDetailView(DetailView):
     template_name = "products/product_detail.html"
@@ -48,8 +66,5 @@ class ProductDetailView(DetailView):
         context['form'] = CartAddProductForm
         return context
 
-
 # class StaffRequiredMixin(object):
 #     pass
-
-

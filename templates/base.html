@@ -41,9 +41,6 @@
             <a class="nav-item nav-link active" href="{% url 'products:products' %}">
               Products
             </a>
-            <a class="nav-item nav-link active" href="">
-              Search
-            </a>
             <a class="nav-item nav-link active" href="/admin">
               Admin panel
             </a>
@@ -53,6 +50,16 @@
 
 
           </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="searchField" placeholder="Search">
+                </div>
+            </div>
         </div>
 
         <div class="navbar-nav ml-auto">
@@ -86,5 +93,7 @@
     {% block content %}{% endblock %}
   </div>
 </div>
+<script src="{% static 'js/searchproduct.js' %}"></script>
+
 </body>
 </html>
