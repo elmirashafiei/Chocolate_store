@@ -9,6 +9,8 @@ from accounts.models import Author
 
 class Category(models.Model):
     name = models.CharField(max_length=128)
+    thumbnail = models.ImageField(upload_to="images/")
+
 
 
     # parent categories and 'children'categories(tree placement)
@@ -26,7 +28,7 @@ class Product(models.Model):
     title = models.CharField(max_length=128)
     description = models.CharField(max_length=256)
     thumbnail = models.ImageField(upload_to="images/")
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     price = DecimalField(max_digits=10, decimal_places=2)
     PRODUCT_TYPES_CHOICES = (
         ("SUBS", "Subscription to a service"),

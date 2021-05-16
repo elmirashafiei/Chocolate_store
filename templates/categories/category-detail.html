@@ -2,13 +2,10 @@
 {% load static %}
 {% block content %}
 
-  <div class="topnav">
-      <input type="text" placeholder="Search Products ...">
-  </div>
-<h1>Products</h1>
+<h1>{{ category.name }} Products</h1>
   <div class="container">
       <div id="products_container" class="row">
-        {% for product in object_list %}
+        {% for product in category_products %}
           <div class="col-4">
             <li><strong>
               {{ product.title }} (price: {{ product.price }} $)
@@ -24,6 +21,5 @@
         {% endfor %}
       </div>
   </div>
-<script src="{% static 'js/searchproduct.js' %}"></script>
 
 {% endblock %}

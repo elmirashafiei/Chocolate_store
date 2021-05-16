@@ -10,7 +10,7 @@
   <form action="{% url 'cart:cart_add' object.id %}" method="post">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Add to Cart" class="btn btn-warning">
+    <input class="add-cart-button" type="submit" value="Add to Cart" class="btn btn-warning">
   </form>
 
 </div>
