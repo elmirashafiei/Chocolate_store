@@ -11,7 +11,7 @@
         {% for product in object_list %}
           <div class="col-4">
             <li><strong>
-              {{ product.title }} (price: {{ product.price }} $)
+              {{ product.title }} (price: {{ product.price }} €)
               </strong>
               <a class="product-title" href="{% url 'products:product_detail' product.id %}">
                 <img  src="{{ product.thumbnail.url }}" alt="Products!" style="max-width:100%;max-height:100%;

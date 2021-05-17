@@ -36,15 +36,15 @@
                 {% csrf_token %}
             </form>
         </td>
-        <td class="num">price: {{ item.price }} $</td>
-        <td class="num">total price: {{ item.total_price }} $</td>
+        <td class="num">price: {{ item.price }} €</td>
+        <td class="num">total price: {{ item.total_price }} €</td>
     </tr>
     {% endwith %}
     {% endfor %}
     <tr class="total">
         <td>Total</td>
         <td colspan="4"></td>
-        <td class="num">total price: {{ cart.get_total_price }} $</td>
+        <td class="num">total price: {{ cart.get_total_price }} €</td>
     </tr>
     </tbody>
 </table>

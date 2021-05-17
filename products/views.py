@@ -1,8 +1,7 @@
 import json
-from django.http import  JsonResponse
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-from django.forms import DecimalField, models
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView
@@ -82,6 +81,3 @@ class ProductDetailView(DetailView):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         context['form'] = CartAddProductForm
         return context
-
-# class StaffRequiredMixin(object):
-#     pass
