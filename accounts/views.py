@@ -27,6 +27,7 @@ class CustomerLoginView(LoginView):
 
     def form_valid(self, form):
         result = super().form_valid(form)
+
         user = self.request.user
         profile = UserAccount.objects.get(user=user)
         my_cart = Cart(self.request)  # this is the offline cart (before logging in)
@@ -43,16 +44,19 @@ class CustomerLoginView(LoginView):
                                                 )
 
         order_items = active_order.order_lines.all()
-        my_cart_copy = my_cart.cart.copy()  # make a copy of the products + quantities in that offline cart
+        my_cart_copy = {}  # make a copy of the products + quantities in that offline cart
 
-        for item in order_items:  # update the session cart from the database
-            my_cart.add(item.product, item.quantity)
+        for key in my_cart.cart:  # update the session cart from the database
+            my_cart_copy[key] = my_cart.cart[key].copy()
+
+        for item in order_items:  # update the session basket from the database
+            my_cart.add(item.product, item.number_of_products)
 
         for product_id in my_cart_copy:  # update the database with the copy of the offline cart
             my_product = Product.objects.get(id=int(product_id))
             if OrderLine.objects.filter(product=my_product, order=active_order).exists():
                 item = OrderLine.objects.get(product=my_product, order=active_order)
-                item.quantity += my_cart_copy[product_id]['quantity']
+                item.number_of_products += my_cart_copy[product_id]['quantity']
                 item.save()
             else:
                 OrderLine.objects.create(
