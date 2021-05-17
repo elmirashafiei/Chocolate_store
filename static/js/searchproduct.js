@@ -39,7 +39,6 @@ searchField.addEventListener("keyup", (e) => {
       let result = "";
       if (data.length) {
         result += data.map(prod => getProductTemplate(prod));
-        result = result.substring(0, result.length - 2);
       } else {
         result = "There isn't any result for the keyword that you are searching.";
       }
@@ -47,22 +46,14 @@ searchField.addEventListener("keyup", (e) => {
       container.innerHTML = result;
 
     });
-
-
-})
-
+});
 
 const getProductTemplate = (prod) => `
-                    <div class="col-4">
-                                <li><strong>
-                                  ${prod.title} (price: ${prod.price} $)
-                                  </strong>
-                                  <a class="product-title" href="/product/detail/${prod.id}">
-                                    <img  src="/media/${prod.thumbnail}" alt="Products!" style="max-width:100%;max-height:100%;
-                                    div.desc {
-                                      padding: 15px;
-                                      text-align: center;} ">
-                                  </a>
-                                </li>
-                              </div>
-                    `;
+<div class="col-4">
+  <li>
+    <strong>${prod.title} (price: ${prod.price} $)</strong>
+    <a class="product-title" href="/product/detail/${prod.id}">
+      <img src="/media/${prod.thumbnail}" alt="Products!" style="max-width:100%;max-height:100%;" />
+    </a>
+  </li>
+</div>`;

@@ -4,16 +4,9 @@ from django.db.models import DecimalField
 from accounts.models import Author
 
 
-# The connection is bad
-
-
 class Category(models.Model):
     name = models.CharField(max_length=128)
     thumbnail = models.ImageField(upload_to="images/")
-
-
-
-    # parent categories and 'children'categories(tree placement)
 
     class Meta:
         ordering = ('name',)
@@ -37,13 +30,9 @@ class Product(models.Model):
     product_type = models.CharField(
         max_length=4,
         choices=PRODUCT_TYPES_CHOICES,
-        default="ITEM",
+        default="SUBS",
     )
     author = models.ForeignKey(Author, on_delete=models.CASCADE, name="products_of_author")
 
     def __str__(self):
         return f'{self.title} , {self.price} , {self.category}'
-
-
- #class ImagesPro(models.Model):
-

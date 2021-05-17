@@ -70,7 +70,8 @@ img {
     box-shadow: 2px 2px 10px;
     margin-top: 20px;
     margin-bottom: 50px;
-    max-height: 450px;
+    max-weight: 450px;
+    height: auto;
 }
 .center-container {
     text-align: center;

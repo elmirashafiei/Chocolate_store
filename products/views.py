@@ -32,7 +32,6 @@ def search_products(request):
             title__startswith=search_str) | Product.objects.filter(
             description__icontains=search_str)
         data = products.values()
-        print(data)
         return JsonResponse(list(data), safe=False)
 
 
