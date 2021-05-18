@@ -21,6 +21,9 @@ class Order(models.Model):
         default="NP"
     )
 
+    def __str__(self):
+        return f'{self.client} , {self.active} , {self.sum}'
+
 
 class OrderLine(models.Model):
     product = models.ForeignKey(Product, on_delete=models.RESTRICT)
@@ -32,3 +35,6 @@ class OrderLine(models.Model):
         unique_together = [
             ['product', 'order'],
         ]
+
+    def __str__(self):
+        return f'{self.product} , {self.number_of_products} , {self.price} , {self.order}'
