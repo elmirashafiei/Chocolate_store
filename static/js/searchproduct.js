@@ -38,7 +38,7 @@ searchField.addEventListener("keyup", (e) => {
       let container = document.getElementById('products_container');
       let result = "";
       if (data.length) {
-        result += data.map(prod => getProductTemplate(prod));
+        result += data.map(prod => getProductTemplate(prod)).join();
       } else {
         result = "There isn't any result for the keyword that you are searching.";
       }
