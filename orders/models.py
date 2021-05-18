@@ -4,40 +4,37 @@ from accounts.models import UserAccount
 from products.models import Product
 
 
-class OrderLine(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, name="product_in_order_lines")
-    number_of_products = models.PositiveIntegerField()
-    product_price = models.PositiveIntegerField()
-
-    # order = models.ForeignKey(Order, on_delete=models.CASCADE, name="order_lines")
-
-    def __str__(self):
-        return f'{self.product}, {self.number_of_products}, {self.product_price}'
-
-
 class Order(models.Model):
-    username = models.CharField(max_length=128)
-    total_cost = models.PositiveIntegerField()
-    delivery_address = models.CharField(max_length=256)
-    user_address = models.CharField(max_length=256)
-    date_of_submission = models.DateTimeField()
-    order_lines = models.ForeignKey(OrderLine, on_delete=models.CASCADE, name="order_lines_of_order")
-    client = models.ForeignKey(UserAccount, on_delete=models.CASCADE, name="client_of_store")
-    status_CHOICES = (
-        ("PEND", "Pending"),
-        ("PRO", "Processing"),
-        ("DISPA", "Dispatched"),
-        ("COMP", "Complete"),
-        ("CANC", "Cancelled"),
-        ("FAIL", "Failed"),
-        ("DECL", "Declined"),
-        ("REF", "Refunded"),
+    client = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name="orders")
+    date_of_submission = models.DateField()
+    active = models.BooleanField()  # If active=True, it means an active basket but order wasn't made yet
+    sum = models.DecimalField(max_digits=7, decimal_places=2)  # price of the whole order
+    STATUS_CHOICES = (
+        ("NP", "Not Paid"),
+        ("PD", "Paid"),
+        ("SH", "Shipped"),
+        ("DL", "Delivered")
     )
-    product_type = models.CharField(
-        max_length=5,
-        choices=status_CHOICES,
-        default="PEND",
+    status = models.CharField(
+        max_length=2,
+        choices=STATUS_CHOICES,
+        default="NP"
     )
 
     def __str__(self):
-        return f'{self.user_address}, {self.total_cost}, {self.delivery_address}'
+        return f'{self.client} , {self.active} , {self.sum}'
+
+
+class OrderLine(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.RESTRICT)
+    number_of_products = models.IntegerField()
+    price = models.DecimalField(max_digits=5, decimal_places=2)  # price of one line of order
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="order_lines")
+
+    class Meta:
+        unique_together = [
+            ['product', 'order'],
+        ]
+
+    def __str__(self):
+        return f'{self.product} , {self.number_of_products} , {self.price} , {self.order}'
