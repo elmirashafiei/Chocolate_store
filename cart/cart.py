@@ -8,10 +8,6 @@ from products.models import Product
 class Cart(object):
 
     def __init__(self, request):
-<<<<<<< HEAD
-        """ Initializing Cart """
-=======
->>>>>>> feature/Order-Models
         self.session = request.session
         cart = self.session.get(settings.CART_SESSION_ID)
         if not cart:
@@ -56,14 +52,10 @@ class Cart(object):
         return sum(item['quantity'] for item in self.cart.values())
 
     def get_total_price(self):
-<<<<<<< HEAD
-        return sum(Decimal(item['price'] * item['quantity']) for item in self.cart.values())
-=======
         return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
     #
     # def get_total_item_price(self):
     #     return self.quantity * self.item.price
->>>>>>> feature/Order-Models
 
     def clear(self):
         del self.session[settings.CART_SESSION_ID]

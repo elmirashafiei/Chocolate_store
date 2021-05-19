@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-
-def add_item_to_order(order, product):
-    pass
-
-
-def remove_item_from_order(order, orderline):
-    pass
-
-
-def update_item_in_order(order, orderline):
-    pass
-=======
 from products.models import Product
 from .models import OrderLine
 
@@ -42,4 +29,3 @@ def update_item_in_order(active_order, product_id, product_quantity):
     order_item = OrderLine.objects.get(order=active_order, product=product_id)
     order_item.quantity = product_quantity
     order_item.save()
->>>>>>> feature/Order-Models

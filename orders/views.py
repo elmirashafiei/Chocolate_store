@@ -1,14 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-<<<<<<< HEAD
-from cart.cart import Cart
-
-
-def order_placed(request):
-    cart = Cart(request)
-    cart.clear()
-=======
 from accounts.models import UserAccount
 from cart.cart import Cart
 from .models import Order
@@ -19,7 +11,7 @@ def order_placed(request):
     cart = Cart(request)
     user = request.user
     profile = UserAccount.objects.get(user=user)
-    active_order = Order.objects.get(client=profile)
+    active_order = Order.objects.get(client=profile, active=True)
 
     active_order.active_cart = False
     active_order.order_status = 'PD'
@@ -28,5 +20,13 @@ def order_placed(request):
     active_order.save()
     cart.clear()
 
->>>>>>> feature/Order-Models
     return render(request, 'orders/order_placed.html')
+
+
+def order_detail(request):
+    user = request.user
+    profile = UserAccount.objects.get(user=user)
+    final_orders = Order.objects.filter(client=profile, active_cart=False).order_by('-id')
+
+    return render(request, 'accounts/order_detail.html', {'orders': final_orders})
+
