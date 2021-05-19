@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-
+import datetime
 from accounts.models import UserAccount
 from cart.cart import Cart
 from .models import Order
@@ -13,10 +13,10 @@ def order_placed(request):
     profile = UserAccount.objects.get(user=user)
     active_order = Order.objects.get(client=profile, active=True)
 
-    active_order.active_cart = False
+    active_order.active = False
     active_order.order_status = 'PD'
     active_order.invoice_total = cart.get_total_price()
-
+    active_order.date_of_submission = datetime.date.today()
     active_order.save()
     cart.clear()
 
@@ -28,5 +28,9 @@ def order_detail(request):
     profile = UserAccount.objects.get(user=user)
     final_orders = Order.objects.filter(client=profile, active=False).order_by('-id')
 
-    return render(request, 'orders/order_detail.html', {'orders': final_orders})
+    items = []
+    for order in final_orders:
+        items.append(order.order_lines.all())
+
+    return render(request, 'orders/order_detail.html', {'orders': final_orders, 'items': items})
 

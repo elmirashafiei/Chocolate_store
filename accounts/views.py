@@ -33,12 +33,13 @@ class CustomerLoginView(LoginView):
         profile = UserAccount.objects.get(user=user)
         my_cart = Cart(self.request)  # this is the offline cart (before logging in)
 
-        if len(my_cart) == 0:
-            return result
+
 
         if Order.objects.filter(client=profile, active=True).exists():
             active_order = Order.objects.get(client=profile, active=True)
         else:
+            if len(my_cart) == 0:
+                return result
             active_order = Order.objects.create(client=profile, active=True,
                                                 date_of_submission=datetime.date.today()
                                                 )

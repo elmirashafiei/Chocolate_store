@@ -19,8 +19,7 @@ def home(request, s0):
 
 
 def index(request):
-    return render(
-        request, template_name='products/index.html',  # Template is the file you want to load
+    return render(request, template_name='products/index.html',  # Template is the file you want to load
     )
 
 
