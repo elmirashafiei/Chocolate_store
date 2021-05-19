@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 from accounts.models import UserAccount
@@ -6,9 +8,9 @@ from products.models import Product
 
 class Order(models.Model):
     client = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name="orders")
-    date_of_submission = models.DateField()
+    date_of_submission = models.DateField(default=datetime.date.today)
     active = models.BooleanField()  # If active=True, it means an active basket but order wasn't made yet
-    sum = models.DecimalField(max_digits=7, decimal_places=2)  # price of the whole order
+    invoice_total = models.DecimalField(max_digits=7, decimal_places=2, default=0)  # price of the whole order
     STATUS_CHOICES = (
         ("NP", "Not Paid"),
         ("PD", "Paid"),
@@ -21,20 +23,18 @@ class Order(models.Model):
         default="NP"
     )
 
+    class Meta:
+        ordering = ('-id',)
+
     def __str__(self):
-        return f'{self.client} , {self.active} , {self.sum}'
+        return f'OrderID: {self.pk} - User: {self.client}'
 
 
 class OrderLine(models.Model):
     product = models.ForeignKey(Product, on_delete=models.RESTRICT)
-    number_of_products = models.IntegerField()
+    quantity = models.IntegerField()
     price = models.DecimalField(max_digits=5, decimal_places=2)  # price of one line of order
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="order_lines")
 
-    class Meta:
-        unique_together = [
-            ['product', 'order'],
-        ]
-
     def __str__(self):
-        return f'{self.product} , {self.number_of_products} , {self.price} , {self.order}'
+        return f'{self.order} , {self.product} , {self.quantity} , {self.price}'

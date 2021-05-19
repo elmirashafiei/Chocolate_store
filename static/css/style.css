@@ -4,11 +4,11 @@ text-align:center;
 text-shadow: 1px 1px 2px;
 shadow-color: yellow;
 }
-
+/*
 .head-img{
 background: url("/static/img/action1.jpeg") 50% 0 no-repeat fixed;
 }
-
+*/
 /* Style the search box inside the navigation bar */
 .topnav input[type=text] {
   float: right;

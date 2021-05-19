@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib.auth.views import LoginView, PasswordChangeView
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
@@ -49,20 +50,28 @@ class CustomerLoginView(LoginView):
         for key in my_cart.cart:  # update the session cart from the database
             my_cart_copy[key] = my_cart.cart[key].copy()
 
-        for item in order_items:  # update the session basket from the database
-            my_cart.add(item.product, item.number_of_products)
+        for item in order_items:  # update the session cart from the database
+            my_cart.add(item.product, item.quantity)
 
         for product_id in my_cart_copy:  # update the database with the copy of the offline cart
             my_product = Product.objects.get(id=int(product_id))
             if OrderLine.objects.filter(product=my_product, order=active_order).exists():
                 item = OrderLine.objects.get(product=my_product, order=active_order)
-                item.number_of_products += my_cart_copy[product_id]['quantity']
+                item.quantity += my_cart_copy[product_id]['quantity']
                 item.save()
             else:
                 OrderLine.objects.create(
                     order=active_order,
                     product=my_product,
                     price=my_product.price,
-                    number_of_products=my_cart_copy[product_id]['quantity']
+                    quantity=my_cart_copy[product_id]['quantity']
                 )
         return result
+
+
+def order_detail(request):
+    user = request.user
+    profile = UserAccount.objects.get(user=user)
+    final_orders = Order.objects.filter(client=profile, active_cart=False).order_by('-id')
+
+    return render(request, 'accounts/order_detail.html', {'orders': final_orders})
