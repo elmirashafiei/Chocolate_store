@@ -26,7 +26,7 @@ def order_placed(request):
 def order_detail(request):
     user = request.user
     profile = UserAccount.objects.get(user=user)
-    final_orders = Order.objects.filter(client=profile, active_cart=False).order_by('-id')
+    final_orders = Order.objects.filter(client=profile, active=False).order_by('-id')
 
-    return render(request, 'accounts/order_detail.html', {'orders': final_orders})
+    return render(request, 'orders/order_detail.html', {'orders': final_orders})
 
