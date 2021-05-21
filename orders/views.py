@@ -30,7 +30,7 @@ def order_detail(request):
 
     items = []
     for order in final_orders:
-        items.append(order.order_lines.all())
+        items += list(order.order_lines.all())
 
     return render(request, 'orders/order_detail.html', {'orders': final_orders, 'items': items})
 

@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST
+
 from accounts.models import UserAccount
-from products.models import Product
 from orders.models import Order
 from orders.orders import add_product_to_basket, remove_product_from_basket
+from products.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
 
@@ -23,11 +24,9 @@ def cart_add(request, product_id):
             if Order.objects.filter(client=account, active=True).exists():
                 active_order = Order.objects.get(client=account, active=True)
             else:
-                active_order = Order.objects.create(client=profile, active=True)
+                active_order = Order.objects.create(client=account, active=True)
 
             add_product_to_basket(active_order, product_id, quantity)
-
-
 
     return redirect('cart:cart_detail')
 
@@ -42,7 +41,7 @@ def cart_remove(request, product_id):
         if Order.objects.filter(client=account, active=True).exists():
             active_order = Order.objects.get(client=account, active=True)
         else:
-            active_order = Order.objects.create(client=profile, active=True)
+            active_order = Order.objects.create(client=account, active=True)
 
         remove_product_from_basket(active_order, product_id)
 
@@ -52,3 +51,5 @@ def cart_remove(request, product_id):
 def cart_detail(request):
     cart = Cart(request)
     return render(request, 'cart/cart_detail.html', {'cart': cart})
+
+

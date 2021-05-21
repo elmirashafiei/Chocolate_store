@@ -6,6 +6,7 @@
   <p><strong> price: </strong>{{ object.price }} €</p>
   <p><strong> category: </strong>{{ object.category }}</p>
   <p><strong> detail: </strong>{{ object.description }}</p>
+  <b></b>
 
   <form action="{% url 'cart:cart_add' object.id %}" method="post">
     {% csrf_token %}

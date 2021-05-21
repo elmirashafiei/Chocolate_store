@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-center align-items-center container mb-5">
   <div class="mb-3 col-sm-4 card p-3 bg-light">
       <div >
-          <h4>Your Order Detail:</h4>
+          <h4>Your Ordered Detail:</h4>
           <hr>
           {% for order in orders %}
                 <br>
@@ -14,17 +14,17 @@
                 <h6>Date: {{ order.date_of_submission }}</h6>
                 <h6>Invoice total: €{{ order.invoice_total }}</h6>
                 <h6>Status: {{ order.status }}</h6>
-                {% with iter=forloop.counter %}
-                {% for item in items.iter %}
+
+                {% for item in items %}
                     _________________
                     <h6>Item: {{ item.product }}</h6>
-                    <h6>Price: {{ item.product.price }}</h6>
+                    <h6>Price: {{ item.price }}</h6>
                     <h6>Quantity: {{ item.quantity }}</h6>
                 {% endfor %}
-                {% endwith %}
           <br>
-          <hr>
           {% endfor %}
+          <hr>
+
       </div>
   </div>
 </div>
