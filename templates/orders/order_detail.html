@@ -8,7 +8,7 @@
       <div >
           <h4>Your Ordered Detail:</h4>
           <hr>
-          {% for order in orders %}
+          {% for order,items in orders %}
                 <br>
                 <h5>Order number: {{ order.pk }}</h5>
                 <h6>Date: {{ order.date_of_submission }}</h6>
